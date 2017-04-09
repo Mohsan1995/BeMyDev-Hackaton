@@ -5,18 +5,12 @@
 #ifndef BEMYDEV_STEP_H
 #define BEMYDEV_STEP_H
 
-
 #include <iostream>
-
-
 
 class Step {
 
-
 public:
     Step(int maxHeure, int numberHeure);
-
-private:
 public:
     int getNumberHeure() const;
 
@@ -29,8 +23,7 @@ public:
 private:
     int numberHeure;
     int maxHeure;
-public:
-    virtual ~Step();
+
 
 };
 
