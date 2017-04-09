@@ -17,19 +17,13 @@ class Hackaton {
     Step* currentStep;
     int status;
 
-
 public:
-    const std::vector<Step *, std::allocator<Step *>> &getSteps() const;
-
-    void setSteps(const std::vector<Step *, std::allocator<Step *>> &steps);
-
-    const std::vector<Team *, std::allocator<Team *>> &getTeams() const;
-
-    void setTeams(const std::vector<Team *, std::allocator<Team *>> &teams);
 
     Step *getCurrentStep() const;
 
     void setCurrentStep(Step *currentStep);
+
+    void Hackaton::addSteps(Step &step);
 
     int getStatus() const;
 
