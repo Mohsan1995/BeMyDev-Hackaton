@@ -3,5 +3,5 @@ project(BeMyDev)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES main.cpp Step.cpp Step.h)
 add_executable(BeMyDev ${SOURCE_FILES})
