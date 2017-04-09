@@ -1,17 +1,20 @@
-//
-// Created by Mohsan BUTT on 09/04/2017.
-//
+#include <iostream>
 
 #ifndef BEMYDEV_STEP_H
 #define BEMYDEV_STEP_H
 
-#include <iostream>
+using namespace std;
+
 
 class Step {
 
 public:
-    Step(int maxHeure, int numberHeure);
+    Step(string name, int maxHeure, int numberHeure);
 public:
+    const string &getName() const;
+
+    void setName(const string &name);
+
     int getNumberHeure() const;
 
     void setNumberHeure(int numberHeure);
@@ -21,10 +24,9 @@ public:
     void setMaxHeure(int maxHeure);
 
 private:
+    string name;
     int numberHeure;
     int maxHeure;
-
-
 };
 
 

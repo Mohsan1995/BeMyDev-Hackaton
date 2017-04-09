@@ -1,33 +1,43 @@
-//
-// Created by Mohsan BUTT on 09/04/2017.
-//
+#include <vector>
+#include <stdexcept>
+#include "Team.h"
+#include "Step.h"
 
 #ifndef BEMYDEV_HACKATON_H
 #define BEMYDEV_HACKATON_H
 
+using namespace std;
 
-#include <vector>
-#include "Step.h"
-#include "Team.h"
+enum HackatonStatus {
+    PENDING, RUNNING, FINISHED
+};
 
 class Hackaton {
 
-    std::vector<Step*> steps;
-    std::vector<Team*> teams;
-    Step* currentStep;
-    int status;
+private:
+    vector<Team**> teams;
+    vector<Step**> steps;
+    Step** currentStep;
+    HackatonStatus statusType;
 
 public:
+    Hackaton();
+    ~Hackaton();
 
-    Step *getCurrentStep() const;
+    Team* addTeam(Team** team);
+    Step* addStep(Step** step);
 
-    void setCurrentStep(Step *currentStep);
 
-    void Hackaton::addSteps(Step &step);
+    Step* getCurrentStep();
+    HackatonStatus getStatusType();
 
-    int getStatus() const;
+    void start();
+    void stop();
 
-    void setStatus(int status);
+    void finishStepWithResults(map<Team**, int> points);
+
+private:
+    void setCurrentStep(int pos);
 };
 
 

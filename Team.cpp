@@ -1,8 +1,5 @@
-//
-// Created by Mohsan BUTT on 09/04/2017.
-//
-
 #include "Team.h"
+
 
 int Team::getId() const {
     return id;
@@ -12,11 +9,11 @@ void Team::setId(int id) {
     Team::id = id;
 }
 
-const std::string &Team::getName() const {
+const string &Team::getName() const {
     return name;
 }
 
-void Team::setName(const std::string &name) {
+void Team::setName(const string &name) {
     Team::name = name;
 }
 
@@ -42,16 +39,24 @@ void Team::setCoefficiant() {
     this->coefficiant = coef;
 }
 
-const std::map<Step, int> &Team::getNote() const {
-    return note;
+const map<Step**, int> &Team::getNotesMaps() const {
+    return points;
 }
 
-void Team::setNote(const std::map<Step, int> &note) {
-    Team::note = note;
+int Team::getPoints() {
+    int total = 0;
+    for (auto const& x : this->points) {
+        total += x.second;
+    }
+    return total;
 }
 
-void Team::addNote(Step step, int note) {
-    this->note[step] = note;
+int Team::getNote(Step** step) {
+    return this->points[step];
+}
+
+void Team::setPoint(Step** step, int point) {
+    this->points[step] = point;
 }
 
 Team::Team() {
@@ -59,6 +64,4 @@ Team::Team() {
     this->coefficiant = 0.05;
 }
 
-Team::Team(int id, const std::string &name) : id(id), name(name) {}
-
-
+Team::Team(const string &name, int numberUser) : name(name), numberUser(numberUser) {}

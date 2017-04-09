@@ -1,31 +1,29 @@
-//
-// Created by Mohsan BUTT on 09/04/2017.
-//
-
-#ifndef BEMYDEV_TEAM_H
-#define BEMYDEV_TEAM_H
-
-
 #include <string>
 #include <map>
 #include "Step.h"
 
+#ifndef BEMYDEV_TEAM_H
+#define BEMYDEV_TEAM_H
+
+using namespace std;
+
+
 class Team {
 
     int id;
-    std::string name;
+    string name;
     int numberUser;
     double coefficiant;
-    std::map<Step, int> note;
+    map<Step**, int> points;
 
 public:
     int getId() const;
 
     void setId(int id);
 
-    const std::string &getName() const;
+    const string &getName() const;
 
-    void setName(const std::string &name);
+    void setName(const string &name);
 
     int getNumberUser() const;
 
@@ -35,16 +33,17 @@ public:
 
     void setCoefficiant();
 
-    const std::map<Step, int> &getNote() const;
+    const map<Step**, int> &getNotesMaps() const;
 
-    void setNote(const std::map<Step, int> &note);
+    int getPoints();
 
-    void addNote(Step step, int note);
+    int getNote(Step** step);
+
+    void setPoint(Step** step, int point);
 
     Team();
 
-    Team(int id, const std::string &name);
-
+    Team(const string &name, int numberUser);
 };
 
 

@@ -1,11 +1,16 @@
-//
-// Created by Mohsan BUTT on 09/04/2017.
-//
-
 #include "Step.h"
 
-Step::Step(int maxHeure, int numberHeure) : maxHeure(maxHeure), numberHeure(numberHeure) {
-    std::cout << "Construcotr step" << std::count;
+
+Step::Step(string name, int maxHeure, int numberHeure) : name(name), maxHeure(maxHeure), numberHeure(numberHeure) {
+    std::cout << "Construcotr step" << std::endl;
+}
+
+const string &Step::getName() const {
+    return name;
+}
+
+void Step::setName(const string &name) {
+    Step::name = name;
 }
 
 int Step::getNumberHeure() const {
@@ -22,8 +27,4 @@ int Step::getMaxHeure() const {
 
 void Step::setMaxHeure(int maxHeure) {
     Step::maxHeure = maxHeure;
-}
-
-Step::~Step() {
-    std::cout << "Destructeur step" << std::endl;
 }
