@@ -1,6 +1,5 @@
 #include <string>
 #include <map>
-#include "Step.h"
 
 #ifndef BEMYDEV_TEAM_H
 #define BEMYDEV_TEAM_H
@@ -14,7 +13,6 @@ class Team {
     string name;
     int numberUser;
     double coefficiant;
-    map<Step**, int> points;
 
 public:
     int getId() const;
@@ -32,14 +30,6 @@ public:
     double getCoefficiant() const;
 
     void setCoefficiant();
-
-    const map<Step**, int> &getNotesMaps() const;
-
-    int getPoints();
-
-    int getNote(Step** step);
-
-    void setPoint(Step** step, int point);
 
     Team();
 

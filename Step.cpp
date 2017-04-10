@@ -1,9 +1,10 @@
 #include "Step.h"
+#include "Team.h"
 
 
 Step::Step(string name, int maxHeure, int numberHeure) : name(name), maxHeure(maxHeure), numberHeure(numberHeure) {
     std::cout << "Construcotr step" << std::endl;
-    status = StepStatus::PENDING;
+    status = StepStatus::PENDING2;
 }
 
 const string &Step::getName() const {
@@ -48,13 +49,13 @@ void Step::setClassment(const vector<Team, allocator<Team>> &classment) {
 
 void Step::startStep() {
     cout << "Step START " + this->getName() << endl;
-    status = StepStatus::RUNNING;
+    status = StepStatus::RUNNING2;
 }
 
 
 void Step::finishStep() {
     cout << "Step END " + this->getName() << endl;
-    status = StepStatus::FINISHED;
+    status = StepStatus::FINISHED2;
 
 
 }

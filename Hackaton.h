@@ -24,8 +24,8 @@ public:
     Hackaton();
     ~Hackaton();
 
-    Team* addTeam(Team** team);
-    Step* addStep(Step** step);
+    void addTeam(Team** team);
+    void addStep(Step** step);
 
     Step* getCurrentStep();
     HackatonStatus getStatusType();

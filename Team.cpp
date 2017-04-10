@@ -39,26 +39,6 @@ void Team::setCoefficiant() {
     this->coefficiant = coef;
 }
 
-const map<Step**, int> &Team::getNotesMaps() const {
-    return points;
-}
-
-int Team::getPoints() {
-    int total = 0;
-    for (auto const& x : this->points) {
-        total += x.second;
-    }
-    return total;
-}
-
-int Team::getNote(Step** step) {
-    return this->points[step];
-}
-
-void Team::setPoint(Step** step, int point) {
-    this->points[step] = point;
-}
-
 Team::Team() {
     this->numberUser = 1;
     this->coefficiant = 0.05;

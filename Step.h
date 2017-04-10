@@ -1,16 +1,14 @@
 #include <iostream>
 #include <vector>
-
+#include "Team.h"
 
 #ifndef BEMYDEV_STEP_H
 #define BEMYDEV_STEP_H
 
 using namespace std;
 
-#include "Team.h"
-
 enum StepStatus {
-    PENDING, RUNNING, FINISHED
+    PENDING2, RUNNING2, FINISHED2
 };
 
 class Step {

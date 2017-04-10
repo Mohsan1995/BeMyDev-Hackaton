@@ -10,15 +10,13 @@ Hackaton::~Hackaton() {
 
 }
 
-Team* Hackaton::addTeam(Team** team) {
+void Hackaton::addTeam(Team** team) {
     this->teams.push_back(team);
     (*team)->setId(this->teams.size());
-    return *team;
 }
 
-Step* Hackaton::addStep(Step** step) {
+void Hackaton::addStep(Step** step) {
     this->steps.push_back(step);
-    return *step;
 }
 
 Step* Hackaton::getCurrentStep() {
@@ -61,7 +59,7 @@ void Hackaton::stop() {
     //Todo: Print result
 }
 
-void Hackaton::finishStepWithResults(map<Team **, int> points) {
+void Hackaton::finishStepWithResults(map<Team**, int> points) {
     if (points.size() != this->teams.size()) return;
 
     cout <<  "\n\n\nFind de l'étape: " << (*this->currentStep)->getName() << endl;
@@ -71,7 +69,7 @@ void Hackaton::finishStepWithResults(map<Team **, int> points) {
         Team** t = this->teams[(*x.first)->getId()-1];
         if (t == x.first) {
             Team* team = *t;
-            team->setPoint(this->currentStep, x.second);
+            //team->setPoint(this->currentStep, x.second);
             cout << "| "
                  << setw(14) << team->getName() << ""
                  << " | "
