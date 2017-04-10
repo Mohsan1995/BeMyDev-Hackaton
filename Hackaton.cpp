@@ -80,7 +80,9 @@ void Hackaton::finishStepWithResults(map<Team **, int> points) {
         }
     }
     cout << "|----------------|---------|\n\n" << endl;
-
-
     //Todo: Set next step or stop
+}
+
+void Hackaton::finishCurrentStep() {
+
 }

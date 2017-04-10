@@ -27,12 +27,13 @@ public:
     Team* addTeam(Team** team);
     Step* addStep(Step** step);
 
-
     Step* getCurrentStep();
     HackatonStatus getStatusType();
 
     void start();
     void stop();
+
+    void finishCurrentStep();
 
     void finishStepWithResults(map<Team**, int> points);
 
