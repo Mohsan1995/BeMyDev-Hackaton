@@ -12,6 +12,14 @@ enum HackatonStatus {
     PENDING, RUNNING, FINISHED
 };
 
+template <typename T1, typename T2>
+struct sortSecond {
+    typedef pair<T1, T2> type;
+    bool operator ()(type const& a, type const& b) const {
+        return a.second > b.second;
+    }
+};
+
 class Hackaton {
 
 private:
@@ -39,6 +47,8 @@ public:
 
 private:
     void setCurrentStep(int pos);
+
+    void printCenterString(string s, int size);
 };
 
 

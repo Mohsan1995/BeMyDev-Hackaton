@@ -39,12 +39,12 @@ void Step::setStatus(StepStatus status) {
     Step::status = status;
 }
 
-const vector<Team, allocator<Team>> &Step::getClassment() const {
-    return classment;
+const map<Team **, int> &Step::getPoints() const {
+    return points;
 }
 
-void Step::setClassment(const vector<Team, allocator<Team>> &classment) {
-    Step::classment = classment;
+void Step::setPoints(const map<Team **, int> &points) {
+    Step::points = points;
 }
 
 void Step::startStep() {
@@ -56,6 +56,4 @@ void Step::startStep() {
 void Step::finishStep() {
     cout << "Step END " + this->getName() << endl;
     status = StepStatus::FINISHED2;
-
-
 }

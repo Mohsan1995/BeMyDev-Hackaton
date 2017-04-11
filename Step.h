@@ -32,9 +32,9 @@ public:
 
     void setStatus(StepStatus status);
 
-    const vector<Team, allocator<Team>> &getClassment() const;
+    const map<Team **, int> &getPoints() const;
 
-    void setClassment(const vector<Team, allocator<Team>> &classment);
+    void setPoints(const map<Team **, int> &points);
 
     void startStep();
 
@@ -46,7 +46,7 @@ private:
     int numberHeure;
     int maxHeure;
     StepStatus status;
-    vector<Team> classment;
+    map<Team**, int> points;
 
 };
 

@@ -1,4 +1,7 @@
+#include <map>
+#include <algorithm>
 #include <iomanip>
+#include <cstring>
 #include "Hackaton.h"
 
 
@@ -56,31 +59,94 @@ void Hackaton::stop() {
     this->statusType = HackatonStatus::FINISHED;
     cout << "Le Hackaton finis" << endl;
 
-    //Todo: Print result
+    map<Team**, int> mapResults;
+    for (auto const& s : steps) {
+        Step* step = *s;
+        if (step->getStatus() == StepStatus::FINISHED2) {
+            for (auto const& x : step->getPoints()) {
+                int point = x.second;
+                if (mapResults[x.first] != NULL) {
+                    point += mapResults[x.first];
+                }
+                mapResults[x.first] = point;
+            }
+        }
+    }
+    vector<pair<Team**, int> > totalResult(mapResults.begin(), mapResults.end());
+    sort(totalResult.begin(), totalResult.end(), sortSecond<Team**, int>());
+
+    cout << "| Pos |      Team      |  Points  |";
+    string separator = "|-----|----------------|----------|";
+    for (auto const& s : steps) {
+        printCenterString((*s)->getName(), 11);
+        cout << "|";
+        separator += "-----------|";
+    }
+    cout << endl << separator << endl;
+    int pos=0;
+
+    for (auto const& x : totalResult) {
+        Team** t = x.first;
+        Team* team = *t;
+        cout << "| "
+             << setw(3) << ++pos << " | "
+             << setw(14) << (*t)->getName() << " | "
+             << setw(8) << x.second << " |";
+
+        for (auto const& s : steps) {
+            cout << " " << setw(9) << ((map<Team**, int>) (*s)->getPoints())[t] << " |";
+        }
+        cout << endl;
+    }
+    cout << separator << endl << endl << endl;
 }
 
 void Hackaton::finishStepWithResults(map<Team**, int> points) {
-    if (points.size() != this->teams.size()) return;
+    if (this->statusType == HackatonStatus::PENDING) {
+        throw invalid_argument("Hackaton not started");
+    }
+
+    if (points.size() != this->teams.size()) {
+        throw invalid_argument("Team size not match");
+    }
+
+    (*this->currentStep)->setPoints(points);
+    vector<pair<Team**, int>> mapcopy(points.begin(), points.end());
+    sort(mapcopy.begin(), mapcopy.end(), sortSecond<Team**, int>());
 
     cout <<  "\n\n\nFind de l'étape: " << (*this->currentStep)->getName() << endl;
-    cout << "|      Team      |  Point  |" << endl;
-    cout << "|----------------|---------|" << endl;
-    for (auto const& x : points) {
-        Team** t = this->teams[(*x.first)->getId()-1];
-        if (t == x.first) {
-            Team* team = *t;
-            //team->setPoint(this->currentStep, x.second);
-            cout << "| "
-                 << setw(14) << team->getName() << ""
-                 << " | "
-                 << setw(7) << x.second << ""
-                 << " |" << endl;
-        }
+    cout << "| Pos |      Team      |  Points  |" << endl;
+    cout << "|-----|----------------|----------|" << endl;
+    int pos=0;
+    for (auto const& x : mapcopy) {
+        Team* team = *x.first;
+        cout << "| "
+             << setw(3) << ++pos << " | "
+             << setw(14) << (*x.first)->getName() << " | "
+             << setw(8) << x.second << " |" << endl;
     }
-    cout << "|----------------|---------|\n\n" << endl;
-    //Todo: Set next step or stop
+    cout << "|-----|----------------|----------|" << endl << endl << endl;
+    finishCurrentStep();
 }
 
 void Hackaton::finishCurrentStep() {
+    (*this->currentStep)->finishStep();
+    int stepsSize = steps.size();
+    for (int i = 0; i <stepsSize; i++) {
+        if (steps[i] == currentStep && i+1 < stepsSize) {
+            setCurrentStep(i+1);
+            return;
+        }
+    }
+    stop();
+}
 
+void Hackaton::printCenterString(string s, int size) {
+    int i1 = size - s.size();
+    int pos = (int) ((i1) / 2);
+    for (int i = 0; i < i1 ; i++) {
+        if (i == pos)
+            cout << s;
+        cout << " ";
+    }
 }
