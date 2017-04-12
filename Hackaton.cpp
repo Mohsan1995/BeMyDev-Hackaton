@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <iomanip>
 #include <cstring>
-#include "Hackaton.h"
+#include "header/Hackaton.h"
 
 
 Hackaton::Hackaton() {
@@ -11,6 +11,14 @@ Hackaton::Hackaton() {
 
 Hackaton::~Hackaton() {
 
+    cout << "VAL " << endl;
+
+    for (auto const& s : steps) {
+        delete *s;
+    }
+    for (auto const& team : teams) {
+        delete *team;
+    }
 }
 
 void Hackaton::addTeam(Team** team) {

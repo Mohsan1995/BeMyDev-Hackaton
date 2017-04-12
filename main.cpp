@@ -1,11 +1,9 @@
 #include <iostream>
-#include "Hackaton.h"
+#include "header/Hackaton.h"
 
 
 int main() {
-    cout << "Hello, World!" << endl;
     Hackaton* hackaton = new Hackaton();
-
     Step* step1 = new Step("Step1", 4, 1);
     hackaton->addStep(&step1);
 
@@ -40,5 +38,9 @@ int main() {
     points[&team3] = 47;
     points[&team4] = 34;
     hackaton->finishStepWithResults(points);
+
+
+    delete hackaton;
+    
     return 0;
 }

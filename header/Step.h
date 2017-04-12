@@ -40,6 +40,8 @@ public:
 
     void finishStep();
 
+    ~Step();
+
 
 private:
     string name;

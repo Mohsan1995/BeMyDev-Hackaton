@@ -1,5 +1,5 @@
-#include "Step.h"
-#include "Team.h"
+#include "header/Step.h"
+#include "header/Team.h"
 
 
 Step::Step(string name, int maxHeure, int numberHeure) : name(name), maxHeure(maxHeure), numberHeure(numberHeure) {
@@ -56,4 +56,10 @@ void Step::startStep() {
 void Step::finishStep() {
     cout << "Step END " + this->getName() << endl;
     status = StepStatus::FINISHED2;
+}
+
+Step::~Step() {
+    for (auto it = points.begin(); it != points.end(); ++it){
+        points.erase(it);
+    }
 }
