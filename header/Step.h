@@ -32,9 +32,9 @@ public:
 
     void setStatus(StepStatus status);
 
-    const map<Team **, int> &getPoints() const;
+    const map<Team*, int> &getPoints() const;
 
-    void setPoints(const map<Team **, int> &points);
+    void setPoints(const map<Team*, int> &points);
 
     void startStep();
 
@@ -48,8 +48,7 @@ private:
     int numberHeure;
     int maxHeure;
     StepStatus status;
-    map<Team**, int> points;
-
+    map<Team*, int> points;
 };
 
 

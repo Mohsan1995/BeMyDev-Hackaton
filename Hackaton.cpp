@@ -14,20 +14,21 @@ Hackaton::~Hackaton() {
     cout << "VAL " << endl;
 
     for (auto const& s : steps) {
-        delete *s;
+        delete &s;
     }
     for (auto const& team : teams) {
-        delete *team;
+        delete &team;
     }
 }
 
-void Hackaton::addTeam(Team** team) {
-    this->teams.push_back(team);
-    (*team)->setId(this->teams.size());
+void Hackaton::addTeam(Team& team) {
+    cout << "jkdshfksdjhfkj   " << &team << endl;
+    this->teams.push_back(&team);
+    team.setId(this->teams.size());
 }
 
-void Hackaton::addStep(Step** step) {
-    this->steps.push_back(step);
+void Hackaton::addStep(Step& step) {
+    this->steps.push_back(&step);
 }
 
 Step* Hackaton::getCurrentStep() {
@@ -38,8 +39,12 @@ HackatonStatus Hackaton::getStatusType() {
     return this->statusType;
 }
 
+const vector<Team *> &Hackaton::getTeams() const {
+    return teams;
+}
+
 void Hackaton::setCurrentStep(int pos) {
-    this->currentStep = steps[pos];
+    this->currentStep = &(steps[pos]);
     cout << "L'étape " << (*this->currentStep)->getName() << " commence" << endl;
 }
 
@@ -65,11 +70,10 @@ void Hackaton::stop() {
     }
 
     this->statusType = HackatonStatus::FINISHED;
-    cout << "Le Hackaton finis" << endl;
+    cout << "Fin du Hackaton" << endl;
 
-    map<Team**, int> mapResults;
-    for (auto const& s : steps) {
-        Step* step = *s;
+    map<Team*, int> mapResults;
+    for (auto const& step : steps) {
         if (step->getStatus() == StepStatus::FINISHED2) {
             for (auto const& x : step->getPoints()) {
                 int point = x.second;
@@ -80,13 +84,13 @@ void Hackaton::stop() {
             }
         }
     }
-    vector<pair<Team**, int> > totalResult(mapResults.begin(), mapResults.end());
-    sort(totalResult.begin(), totalResult.end(), sortSecond<Team**, int>());
+    vector<pair<Team*, int> > totalResult(mapResults.begin(), mapResults.end());
+    sort(totalResult.begin(), totalResult.end(), sortSecond<Team*, int>());
 
     cout << "| Pos |      Team      |  Points  |";
     string separator = "|-----|----------------|----------|";
     for (auto const& s : steps) {
-        printCenterString((*s)->getName(), 11);
+        printCenterString(s->getName(), 11);
         cout << "|";
         separator += "-----------|";
     }
@@ -94,22 +98,22 @@ void Hackaton::stop() {
     int pos=0;
 
     for (auto const& x : totalResult) {
-        Team** t = x.first;
-        Team* team = *t;
+        Team* team = x.first;
         cout << "| "
              << setw(3) << ++pos << " | "
-             << setw(14) << (*t)->getName() << " | "
+             << setw(14) << team->getName() << " | "
              << setw(8) << x.second << " |";
 
         for (auto const& s : steps) {
-            cout << " " << setw(9) << ((map<Team**, int>) (*s)->getPoints())[t] << " |";
+            cout << " " << setw(9) << ((map<Team*, int>) s->getPoints())[team] << " |";
         }
         cout << endl;
     }
     cout << separator << endl << endl << endl;
 }
 
-void Hackaton::finishStepWithResults(map<Team**, int> points) {
+void Hackaton::finishStepWithResults(map<Team*, int> points) {
+    cout << "Hello" << endl;
     if (this->statusType == HackatonStatus::PENDING) {
         throw invalid_argument("Hackaton not started");
     }
@@ -119,18 +123,19 @@ void Hackaton::finishStepWithResults(map<Team**, int> points) {
     }
 
     (*this->currentStep)->setPoints(points);
-    vector<pair<Team**, int>> mapcopy(points.begin(), points.end());
-    sort(mapcopy.begin(), mapcopy.end(), sortSecond<Team**, int>());
+    vector<pair<Team*, int>> mapcopy(points.begin(), points.end());
+    sort(mapcopy.begin(), mapcopy.end(), sortSecond<Team*, int>());
+    cout << "Hello3" << endl;
 
-    cout <<  "\n\n\nFind de l'étape: " << (*this->currentStep)->getName() << endl;
+    cout <<  "\n\n\nFin de l'étape: " << (*this->currentStep)->getName() << endl;
     cout << "| Pos |      Team      |  Points  |" << endl;
     cout << "|-----|----------------|----------|" << endl;
     int pos=0;
     for (auto const& x : mapcopy) {
-        Team* team = *x.first;
+        Team* team = x.first;
         cout << "| "
              << setw(3) << ++pos << " | "
-             << setw(14) << (*x.first)->getName() << " | "
+             << setw(14) << team->getName() << " | "
              << setw(8) << x.second << " |" << endl;
     }
     cout << "|-----|----------------|----------|" << endl << endl << endl;
@@ -141,7 +146,7 @@ void Hackaton::finishCurrentStep() {
     (*this->currentStep)->finishStep();
     int stepsSize = steps.size();
     for (int i = 0; i <stepsSize; i++) {
-        if (steps[i] == currentStep && i+1 < stepsSize) {
+        if (&steps[i] == currentStep && i+1 < stepsSize) {
             setCurrentStep(i+1);
             return;
         }

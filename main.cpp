@@ -4,43 +4,92 @@
 
 int main() {
     Hackaton* hackaton = new Hackaton();
-    Step* step1 = new Step("Step1", 4, 1);
-    hackaton->addStep(&step1);
 
-    Step* step2 = new Step("Step2", 6, 2);
-    hackaton->addStep(&step2);
+    while (hackaton->getStatusType() == HackatonStatus::PENDING) {
+        cout << endl << endl << "Menu:" << endl
+             << "1: Ajouter Equipe" << endl
+             << "2: Ajouter Etape" << endl
+             << "3: Démarer Hackaton" << endl << endl
+             << "->";
 
-    Team* team1 = new Team("Team1", 4);
-    hackaton->addTeam(&team1);
+        char input;
+        cin >> input;
+        switch (input) {
+            case '1': {
+                string teamName;
+                int number;
+                cout << "Nom d'équipe: ";
+                cin >> teamName;
 
-    Team* team2 = new Team("Team2", 7);
-    hackaton->addTeam(&team2);
+                cout << "Nombre de membres: ";
+                cin >> number;
 
-    Team* team3 = new Team("Team3", 5);
-    hackaton->addTeam(&team3);
+                Team* team = new Team(teamName, number);
+                hackaton->addTeam(*team);
+                cout << team << endl;
+                cout << &team << endl;
+                cout << "Ajout de l'équipe " << teamName << " numéro " << team->getId() << " de " << number << " membres" << endl;
+                break;
+            }
 
-    Team* team4 = new Team("Team4", 3);
-    hackaton->addTeam(&team4);
+            case '2': {
+                string stepName;
+                int maxTime;
+                cout << "Nom d'étape: ";
+                cin >> stepName;
 
-    hackaton->start();
+                cout << "Temps max: ";
+                cin >> maxTime;
 
-    map<Team**, int> points;
+                Step* step = new Step(stepName, maxTime, 1);
+                hackaton->addStep(*step);
+                cout << "Ajout de l'étape " << stepName << " de " << maxTime << " heures " << endl;
+                break;
+            }
 
-    points[&team1] = 24;
-    points[&team2] = 19;
-    points[&team3] = 48;
-    points[&team4] = 15;
-    hackaton->finishStepWithResults(points);
+            case '3': {
+                hackaton->start();
+                break;
+            }
+        }
+    };
 
 
-    points[&team1] = 12;
-    points[&team2] = 8;
-    points[&team3] = 47;
-    points[&team4] = 34;
-    hackaton->finishStepWithResults(points);
+    while (hackaton->getStatusType() == HackatonStatus::RUNNING) {
+        cout << endl << endl << "Menu:" << endl
+             << "1: Terminer l'étape actuel" << endl
+             << "2: Finir le hackaton" << endl << endl
+             << "->";
 
+        char input;
+        cin >> input;
+        switch (input) {
+            case '1': {
+                map<Team*, int> points;
+                cout << "Attribution des points." << endl;
+                for (auto & t : hackaton->getTeams()) {
+                    Team* team = t;
+                    cout << "Point pour l'équipe " << t->getName() << " :";
+
+                    int point;
+                    cin >> point;
+                    cout << team << endl;
+                    cout << &team << endl;
+                    points[team] = point;
+                }
+
+                hackaton->finishStepWithResults(points);
+                break;
+            }
+
+            case '2': {
+                hackaton->stop();
+                break;
+            }
+        }
+    }
 
     delete hackaton;
-    
+
     return 0;
 }

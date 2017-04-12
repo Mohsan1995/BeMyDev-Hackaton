@@ -39,11 +39,11 @@ void Step::setStatus(StepStatus status) {
     Step::status = status;
 }
 
-const map<Team **, int> &Step::getPoints() const {
+const map<Team*, int> &Step::getPoints() const {
     return points;
 }
 
-void Step::setPoints(const map<Team **, int> &points) {
+void Step::setPoints(const map<Team*, int> &points) {
     Step::points = points;
 }
 

@@ -23,8 +23,8 @@ struct sortSecond {
 class Hackaton {
 
 private:
-    vector<Team**> teams;
-    vector<Step**> steps;
+    vector<Team*> teams;
+    vector<Step*> steps;
     Step** currentStep;
     HackatonStatus statusType;
 
@@ -32,18 +32,20 @@ public:
     Hackaton();
     ~Hackaton();
 
-    void addTeam(Team** team);
-    void addStep(Step** step);
+    void addTeam(Team& team);
+    void addStep(Step& step);
 
     Step* getCurrentStep();
     HackatonStatus getStatusType();
+
+    const vector<Team *> &getTeams() const;
 
     void start();
     void stop();
 
     void finishCurrentStep();
 
-    void finishStepWithResults(map<Team**, int> points);
+    void finishStepWithResults(map<Team*, int> points);
 
 private:
     void setCurrentStep(int pos);
