@@ -73,7 +73,7 @@ int main() {
                     cin >> point;
                     cout << team << endl;
                     cout << &team << endl;
-                    points[team] = point;
+                    points[team] = point / team->getCoefficiant();
                 }
 
                 hackaton->finishStepWithResults(points);

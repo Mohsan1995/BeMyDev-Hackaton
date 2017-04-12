@@ -31,17 +31,14 @@ double Team::getCoefficiant() const {
 }
 
 void Team::setCoefficiant() {
-    double coef = 0.05;
-
-    for (int i = this->numberUser; i >= 0 ; --i) {
-        coef+= 0.05;
-    }
-    this->coefficiant = coef;
+    this->coefficiant = 0.75 + (this->numberUser * 0.05);
 }
 
 Team::Team() {
     this->numberUser = 1;
-    this->coefficiant = 0.05;
+    this->setCoefficiant();
 }
 
-Team::Team(const string &name, int numberUser) : name(name), numberUser(numberUser) {}
+Team::Team(const string &name, int numberUser) : name(name), numberUser(numberUser) {
+    this->setCoefficiant();
+}
