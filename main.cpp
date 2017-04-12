@@ -26,8 +26,6 @@ int main() {
 
                 Team* team = new Team(teamName, number);
                 hackaton->addTeam(*team);
-                cout << team << endl;
-                cout << &team << endl;
                 cout << "Ajout de l'équipe " << teamName << " numéro " << team->getId() << " de " << number << " membres" << endl;
                 break;
             }

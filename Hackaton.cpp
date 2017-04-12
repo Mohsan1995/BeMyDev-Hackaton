@@ -22,7 +22,6 @@ Hackaton::~Hackaton() {
 }
 
 void Hackaton::addTeam(Team& team) {
-    cout << "jkdshfksdjhfkj   " << &team << endl;
     this->teams.push_back(&team);
     team.setId(this->teams.size());
 }
@@ -125,7 +124,6 @@ void Hackaton::finishStepWithResults(map<Team*, int> points) {
     (*this->currentStep)->setPoints(points);
     vector<pair<Team*, int>> mapcopy(points.begin(), points.end());
     sort(mapcopy.begin(), mapcopy.end(), sortSecond<Team*, int>());
-    cout << "Hello3" << endl;
 
     cout <<  "\n\n\nFin de l'étape: " << (*this->currentStep)->getName() << endl;
     cout << "| Pos |      Team      |  Points  |" << endl;
