@@ -1,5 +1,5 @@
-#include "header/Step.h"
-#include "header/Team.h"
+#include "../header/Step.h"
+#include "../header/Team.h"
 
 
 Step::Step(string name, int maxHeure, int numberHeure) : name(name), maxHeure(maxHeure), numberHeure(numberHeure) {

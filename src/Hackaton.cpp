@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <iomanip>
 #include <cstring>
-#include "header/Hackaton.h"
+#include "../header/Hackaton.h"
 
 
 Hackaton::Hackaton() {
