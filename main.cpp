@@ -71,8 +71,6 @@ int main() {
 
                     int point;
                     cin >> point;
-                    cout << team << endl;
-                    cout << &team << endl;
                     points[team] = point / team->getCoefficiant();
                 }
 

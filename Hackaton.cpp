@@ -14,10 +14,10 @@ Hackaton::~Hackaton() {
     cout << "VAL " << endl;
 
     for (auto const& s : steps) {
-        delete &s;
+        delete s;
     }
     for (auto const& team : teams) {
-        delete &team;
+        delete team;
     }
 }
 

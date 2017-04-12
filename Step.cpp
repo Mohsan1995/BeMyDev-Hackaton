@@ -60,6 +60,7 @@ void Step::finishStep() {
 
 Step::~Step() {
     for (auto it = points.begin(); it != points.end(); ++it){
+        delete it->first;
         points.erase(it);
     }
 }
